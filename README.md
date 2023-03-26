@@ -43,4 +43,34 @@ Since the mount will be so close to the bed, having rear stops for your build sh
 - Install M3x8 SHCS into top holes a few mm. These are installing into plastic so be careful.
 - Install the stops to the bed mount extrusions using M3x8 SHCS. Make sure they are in contact with the bed.
 - Adjust the top M3 screws as needed so they are just proud of your bed/magnet. Just high enough you can reference your build sheet on while installing.
-- Carefully look at the installed build sheet and confirm it's flush wtih the back of the bed. Any overhang reduces the clearance you have for the brush. 
+- Carefully look at the installed build sheet and confirm it's flush with the back of the bed. Any overhang reduces the clearance you have for the brush. 
+
+## ADDITIONAL INFO
+I use this mod as part of the print_end macro. It's important to have an adequate retract to limit oozing after the nozzle is cleaned. I turn the heaters off early and added a 15 sec wait command before calling the clean_nozzle macro. This allows any oozing that's going to happen to occur before the clean. You'll have to experiment with this to find what works best for you.
+
+Example:
+```
+[gcode_macro PRINT_END]
+gcode:    
+    # safe anti-stringing move coords
+    {% set th = printer.toolhead %}
+    {% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+    {% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+    {% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+    SAVE_GCODE_STATE NAME=STATE_PRINT_END
+    M400                    ; wait for buffer to clear
+    TURN_OFF_HEATERS        ; turn off bed and extruder heaters
+    G92 E0                  ; zero the extruder
+    G1 E-2.0 F2000          ; retract filament
+    G90                     ; absolute positioning
+    G0 X{x_safe} Y{y_safe} Z{z_safe} F10000  ; move nozzle to remove stringing
+    G1 E-10.0 F5000         ; retract filament more
+    G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+    G4 P15000               ; wait 15 secs for nozzle to start cooling
+    STATUS_CLEANING         ; set LEDs to cleaning
+    CLEAN_NOZZLE            ; clean nozzle on brush
+    M107                    ; turn off part cooling fan
+    BED_MESH_CLEAR          ; clear bed mesh
+    STATUS_READY            ; set LEDs to ready
+    RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+ ```
