@@ -8,7 +8,7 @@ This is an adaptation of the Decontaminator Nozzle Scrubber by [edwardyeeks]( ht
 
 ## DISCLAIMER 
 
-***THIS MOD IS INTENDED FOR ADVANCED USERS ONLY AND WILL REQUIRE SETTING UP YOUR PRINTER WITH VERY TIGHT TOLERANCES, LIKELY REQUIRING MODIFYING YOUR Y-MAX AND ADJUSTING YOUR PHYSICAL BED LOCATION IF YOU WANT TO RETAIN THE FULL XY BUILD AREA OF YOUR PRINTER. READ THIS WRITE UP AND THE PROVIDED CONFIG FILE IN THEIR ENTIRITY BEFORE PROCEEDING. YOU ARE USING THIS MOD AT YOU OWN RISK AND THE AUTHOR ASSUMES NO LIABILTY FOR ANY DAMAGE RESULTING FROM THE USE OF IT.***
+***THIS MOD IS INTENDED FOR ADVANCED USERS ONLY AND WILL REQUIRE SETTING UP YOUR PRINTER WITH VERY TIGHT TOLERANCES, LIKELY REQUIRING MODIFYING YOUR Y-MAX AND ADJUSTING YOUR PHYSICAL BED LOCATION IF YOU WANT TO RETAIN THE FULL XY BUILD AREA OF YOUR PRINTER. READ THIS WRITE UP AND THE PROVIDED CONFIG FILE IN THEIR ENTIRITY BEFORE PROCEEDING. YOU ARE USING THIS MOD AT YOU OWN RISK AND THE AUTHOR ASSUMES NO LIABILTY FOR ANY DAMAGE RESULTING FROM ITS USE.***
 
 ## PURPOSE
 This mod is intended for users of TAP to provide a safe nozzle cleaning routine that can be performed at the end of the print. With the original Nozzle Scrubber mod, the Z has to lower to the brush, risking crashing the toolhead into printed parts if performed at the end of a print. With this mod, the scrubbing can be performed at any height as the brush is mounted to the gantry. There are no Z movements in the provided config, as such, the cleaning will be performed at the current height when the macro is called.
